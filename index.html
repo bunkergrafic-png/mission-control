@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Mission Control</title>
+<meta name="theme-color" content="#0e1015"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="bg-ambient" aria-hidden="true"></div>
+
+<main id="screenHome" class="screen active">
+  <div class="home-top">
+    <div class="greet" id="greetLine">¿Qué está pasando, Dio?</div>
+  </div>
+
+  <button class="btn-cuentame" id="btnCuentame">
+    <span class="mic">🎙️</span>
+    <span>CUÉNTAME</span>
+  </button>
+
+  <div class="mood-grid" id="moodGrid"></div>
+
+  <div class="ctx-row" id="ctxRow"></div>
+
+  <div class="home-foot">
+    <button class="link-quiet" id="btnVerPendientes">ver pendientes</button>
+  </div>
+
+  <div class="proto-nav" id="protoNav">
+    <span>Prototipo visual —</span>
+    <button id="protoSorpresa">ver Sorpresa</button>
+    <button id="protoBoss">ver Boss</button>
+  </div>
+</main>
+
+<section id="screenSorpresa" class="screen overlay-screen">
+  <div class="reveal-card rare" id="sorpresaCard">
+    <div class="reveal-kicker">🎲 SORPRESA</div>
+    <div class="reveal-title" id="sorpresaTitulo">Reto misterioso</div>
+    <div class="reveal-body" id="sorpresaCuerpo">Encuentra una sola cosa fuera de lugar que puedas guardar en menos de 20 segundos.</div>
+    <div class="reveal-actions">
+      <button class="btn-primary" id="sorpresaAceptar">Va pues</button>
+      <button class="btn-ghost" id="sorpresaCerrar">Ahora no</button>
+    </div>
+  </div>
+</section>
+
+<section id="screenBoss" class="screen overlay-screen">
+  <div class="reveal-card boss" id="bossCard">
+    <div class="reveal-kicker boss-kicker">👹 BOSS DISPONIBLE</div>
+    <div class="reveal-body" id="bossTeaser">Hay una vaina que llevas esquivando.<br/>Hoy creo que podrías con ella.</div>
+    <div class="reveal-actions" id="bossPreActions">
+      <button class="btn-primary" id="bossRevelar">Revelar</button>
+      <button class="btn-ghost" id="bossRechazar">Ni de vaina</button>
+    </div>
+    <div class="boss-revealed" id="bossRevealed" hidden>
+      <div class="reveal-title">El lavaplatos del infierno</div>
+      <div class="boss-condicion">Condición de victoria: sobrevive una ronda de 7 minutos.</div>
+      <div class="reveal-actions">
+        <button class="btn-primary">Empezar ronda</button>
+      </div>
+    </div>
+    <button class="btn-ghost boss-close" id="bossCerrar">Cerrar</button>
+  </div>
+</section>
+
+<script src="state.js"></script>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
