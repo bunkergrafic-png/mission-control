@@ -112,7 +112,7 @@ main, section{position:relative;z-index:1;}
 .ctx-chip:hover{color:var(--text);border-color:var(--faint);}
 .ctx-chip.on{background:var(--cyan-soft);border-color:var(--cyan);color:var(--cyan);}
 
-.home-foot{text-align:center;padding-top:8px;}
+.home-foot{display:flex;justify-content:center;gap:22px;padding-top:8px;}
 .link-quiet{background:none;border:none;color:var(--faint);font-size:.78rem;text-decoration:underline;cursor:pointer;font-family:var(--f-body);}
 .link-quiet:hover{color:var(--dim);}
 
@@ -167,3 +167,86 @@ main, section{position:relative;z-index:1;}
 @media (min-width:600px){
   #screenHome{padding-top:70px;}
 }
+
+/* ── tab bar ──────────────────────────────────────────── */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  display:flex;justify-content:space-around;
+  background:rgba(14,16,21,.92);backdrop-filter:blur(10px);
+  border-top:1px solid var(--border);
+  padding:9px 6px calc(9px + env(safe-area-inset-bottom));
+}
+.tabbar button{
+  background:none;border:none;color:var(--faint);font-size:1.15rem;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  cursor:pointer;padding:4px 10px;
+}
+.tabbar button span{font-size:.6rem;font-family:var(--f-body);letter-spacing:.3px;}
+.tabbar button.tab-on{color:var(--cyan);}
+#screenHome{padding-bottom:80px;}
+
+/* ── cards wide / soft body ───────────────────────────── */
+.reveal-card.wide{max-width:520px;max-height:80vh;overflow-y:auto;text-align:left;}
+.reveal-card.wide .reveal-kicker,.reveal-card .reveal-kicker{text-align:center;}
+.reveal-body.soft{color:var(--faint);font-size:.82rem;margin-top:14px;}
+
+/* ── Cuéntame ─────────────────────────────────────────── */
+.dump-box{
+  width:100%;min-height:110px;margin-top:14px;
+  background:var(--bg-2);border:1px solid var(--border);color:var(--text);
+  border-radius:14px;padding:13px;font-size:.9rem;font-family:var(--f-body);resize:vertical;
+}
+.dump-box:focus{outline:none;border-color:var(--cyan);}
+.dump-list{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+.dump-item{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.84rem;display:flex;justify-content:space-between;gap:8px;align-items:center;}
+.dump-item .tag-importante{font-size:.62rem;color:var(--cyan);border:1px solid var(--cyan);border-radius:20px;padding:2px 8px;white-space:nowrap;}
+.dump-box-view{margin:14px 0;}
+.dump-box-view input{width:100%;background:var(--bg-2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:11px;font-size:.88rem;}
+.dump-box-view input:focus{outline:none;border-color:var(--cyan);}
+
+/* ── racha ────────────────────────────────────────────── */
+.reveal-card.racha{border-color:rgba(224,98,90,.35);}
+.racha-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
+.racha-grid button{
+  background:var(--bg-2);border:1px solid var(--border);color:var(--text);
+  border-radius:12px;padding:14px 8px;font-size:.82rem;font-weight:600;cursor:pointer;
+}
+.racha-grid button:hover{border-color:var(--cyan);}
+.racha-grid button.salir{grid-column:1/-1;color:var(--dim);}
+
+/* ── boss extra ───────────────────────────────────────── */
+.boss-timer{font-size:2.6rem;font-weight:600;text-align:center;margin:16px 0;color:var(--boss);}
+.boss-zonas{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+.boss-zonas button{background:var(--bg-2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:11px;font-size:.84rem;cursor:pointer;text-align:left;}
+.boss-zonas button:hover{border-color:var(--boss);}
+
+/* ── plain lists (Expedientes/Bloqueos/Bitácora/Pendientes) ─ */
+.plain-list{margin-top:16px;display:flex;flex-direction:column;gap:2px;max-height:56vh;overflow-y:auto;}
+.plist-row{padding:12px 2px;border-bottom:1px solid var(--bg-2);}
+.plist-row:last-child{border-bottom:none;}
+.plist-row .t{font-size:.86rem;font-weight:600;}
+.plist-row .m{font-size:.72rem;color:var(--faint);margin-top:3px;}
+.plist-row .actions{display:flex;gap:14px;margin-top:8px;}
+.plist-row .actions button{background:none;border:none;color:var(--dim);font-size:.72rem;text-decoration:underline;cursor:pointer;padding:0;}
+.plist-row .actions button:hover{color:var(--cyan);}
+.plist-empty{color:var(--faint);font-size:.85rem;text-align:center;padding:20px 0;}
+.badge-dormido{font-size:.6rem;color:var(--faint);border:1px solid var(--border);border-radius:20px;padding:1px 7px;margin-left:6px;}
+.badge-bloqueo{font-size:.6rem;color:var(--boss);border:1px solid var(--boss);border-radius:20px;padding:1px 7px;}
+
+/* ── bloqueo diagnóstico ──────────────────────────────── */
+.bloqueo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px;}
+.bloqueo-grid button{background:var(--bg-2);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:12px 6px;font-size:.78rem;cursor:pointer;}
+.bloqueo-grid button:hover{border-color:var(--boss);}
+
+/* ── home-mid (small live status, optional) ──────────── */
+.home-mid{font-size:.72rem;color:var(--faint);margin-bottom:14px;min-height:1em;}
+
+/* ── toast ────────────────────────────────────────────── */
+.toast{
+  position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(16px);
+  background:var(--surface-2);border:1px solid var(--green);color:var(--text);
+  padding:12px 20px;border-radius:12px;font-size:.85rem;
+  opacity:0;transition:all .35s ease;z-index:120;text-align:center;max-width:88vw;
+  pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}

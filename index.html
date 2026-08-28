@@ -4,7 +4,10 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
 <title>Mission Control</title>
+<link rel="manifest" href="manifest.json"/>
 <meta name="theme-color" content="#0e1015"/>
+<link rel="icon" href="icon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="icon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet"/>
@@ -14,6 +17,7 @@
 
 <div class="bg-ambient" aria-hidden="true"></div>
 
+<!-- ── HOME ─────────────────────────────────────────────── -->
 <main id="screenHome" class="screen active">
   <div class="home-top">
     <div class="greet" id="greetLine">¿Qué está pasando, Dio?</div>
@@ -28,47 +32,147 @@
 
   <div class="ctx-row" id="ctxRow"></div>
 
+  <div class="home-mid" id="homeMid"></div>
+
   <div class="home-foot">
     <button class="link-quiet" id="btnVerPendientes">ver pendientes</button>
-  </div>
-
-  <div class="proto-nav" id="protoNav">
-    <span>Prototipo visual —</span>
-    <button id="protoSorpresa">ver Sorpresa</button>
-    <button id="protoBoss">ver Boss</button>
+    <button class="link-quiet" id="btnVerBoss">👹 boss disponible</button>
   </div>
 </main>
 
-<section id="screenSorpresa" class="screen overlay-screen">
-  <div class="reveal-card rare" id="sorpresaCard">
-    <div class="reveal-kicker">🎲 SORPRESA</div>
-    <div class="reveal-title" id="sorpresaTitulo">Reto misterioso</div>
-    <div class="reveal-body" id="sorpresaCuerpo">Encuentra una sola cosa fuera de lugar que puedas guardar en menos de 20 segundos.</div>
-    <div class="reveal-actions">
-      <button class="btn-primary" id="sorpresaAceptar">Va pues</button>
-      <button class="btn-ghost" id="sorpresaCerrar">Ahora no</button>
+<!-- ── CUÉNTAME ─────────────────────────────────────────── -->
+<section id="screenCuentame" class="screen overlay-screen">
+  <div class="reveal-card wide" id="cuentameCard">
+    <div class="reveal-kicker">🎙️ CUÉNTAME</div>
+    <div id="cuentameStep1">
+      <div class="reveal-body">Suelta lo que sea. Yo lo ordeno.</div>
+      <textarea id="cuentameTexto" class="dump-box" placeholder="Ej: tengo que comprar comida para la perra, terminar unas bolsas, llamar a fulano, la cocina está vuelta mierda..."></textarea>
+      <div class="reveal-actions">
+        <button class="btn-primary" id="cuentameProcesar">Ya está</button>
+        <button class="btn-ghost" id="cuentameCerrar">Cerrar</button>
+      </div>
+    </div>
+    <div id="cuentameStep2" hidden>
+      <div class="reveal-body" id="cuentameResumen"></div>
+      <div class="dump-list" id="cuentameLista"></div>
+      <div class="reveal-body soft">¿Quieres decidir tú por dónde empezamos, o decido yo?</div>
+      <div class="reveal-actions">
+        <button class="btn-primary" id="cuentameUsuarioDecide">Decide tú</button>
+        <button class="btn-ghost" id="cuentameSistemaDecide">Decido yo</button>
+      </div>
+      <button class="link-quiet" id="cuentameFinCerrar">listo, cerrar</button>
     </div>
   </div>
 </section>
 
+<!-- ── SORPRESA ─────────────────────────────────────────── -->
+<section id="screenSorpresa" class="screen overlay-screen">
+  <div class="reveal-card rare" id="sorpresaCard">
+    <div class="reveal-kicker" id="sorpresaKicker">🎲 SORPRESA</div>
+    <div class="reveal-title" id="sorpresaTitulo">—</div>
+    <div class="reveal-body" id="sorpresaCuerpo">—</div>
+    <div class="dump-box-view" id="sorpresaInputWrap" hidden><input id="sorpresaInput" placeholder="Escribe aquí..."/></div>
+    <div class="reveal-actions" id="sorpresaAccionesPre">
+      <button class="btn-primary" id="sorpresaAceptar">Va pues</button>
+      <button class="btn-ghost" id="sorpresaCerrar">Ahora no</button>
+    </div>
+    <div class="reveal-actions" id="sorpresaAccionesPost" hidden>
+      <button class="btn-primary" id="sorpresaListo">Listo</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── RACHA (continuar / retirarse) ───────────────────── -->
+<section id="screenRacha" class="screen overlay-screen">
+  <div class="reveal-card racha" id="rachaCard">
+    <div class="reveal-kicker" id="rachaKicker">🔥 RACHA</div>
+    <div class="reveal-body" id="rachaTexto">—</div>
+    <div class="racha-grid" id="rachaGrid"></div>
+  </div>
+</section>
+
+<!-- ── BOSS ─────────────────────────────────────────────── -->
 <section id="screenBoss" class="screen overlay-screen">
   <div class="reveal-card boss" id="bossCard">
-    <div class="reveal-kicker boss-kicker">👹 BOSS DISPONIBLE</div>
-    <div class="reveal-body" id="bossTeaser">Hay una vaina que llevas esquivando.<br/>Hoy creo que podrías con ella.</div>
+    <div class="reveal-kicker boss-kicker" id="bossKicker">👹 BOSS DISPONIBLE</div>
+    <div class="reveal-body" id="bossTeaser">—</div>
     <div class="reveal-actions" id="bossPreActions">
       <button class="btn-primary" id="bossRevelar">Revelar</button>
       <button class="btn-ghost" id="bossRechazar">Ni de vaina</button>
     </div>
     <div class="boss-revealed" id="bossRevealed" hidden>
-      <div class="reveal-title">El lavaplatos del infierno</div>
-      <div class="boss-condicion">Condición de victoria: sobrevive una ronda de 7 minutos.</div>
-      <div class="reveal-actions">
-        <button class="btn-primary">Empezar ronda</button>
+      <div class="reveal-title" id="bossNombre">—</div>
+      <div class="boss-condicion" id="bossCondicion">—</div>
+      <div id="bossModoNormal">
+        <div class="reveal-actions"><button class="btn-primary" id="bossEmpezarRonda">Empezar ronda (7 min)</button></div>
+      </div>
+      <div id="bossModoIntel" hidden>
+        <div class="reveal-body soft">No estás en condiciones de atacarlo ahora — modo Intelligence: elige por dónde entrar otro día.</div>
+        <div class="boss-zonas" id="bossZonas"></div>
+      </div>
+      <div id="bossTimerWrap" hidden>
+        <div class="boss-timer mono" id="bossTimerDisplay">07:00</div>
+        <div class="reveal-actions"><button class="btn-primary" id="bossSobrevivido">Sobreviví</button></div>
       </div>
     </div>
     <button class="btn-ghost boss-close" id="bossCerrar">Cerrar</button>
   </div>
 </section>
+
+<!-- ── EXPEDIENTES ──────────────────────────────────────── -->
+<section id="screenExpedientes" class="screen overlay-screen">
+  <div class="reveal-card wide" id="expedientesCard">
+    <div class="reveal-kicker">📁 EXPEDIENTES</div>
+    <div class="plain-list" id="expedientesLista"></div>
+    <button class="link-quiet" id="expedientesCerrar">cerrar</button>
+  </div>
+</section>
+
+<!-- ── BLOQUEOS ─────────────────────────────────────────── -->
+<section id="screenBloqueos" class="screen overlay-screen">
+  <div class="reveal-card wide" id="bloqueosCard">
+    <div class="reveal-kicker">🧱 BLOQUEOS</div>
+    <div class="plain-list" id="bloqueosLista"></div>
+    <button class="link-quiet" id="bloqueosCerrar">cerrar</button>
+  </div>
+</section>
+
+<!-- ── BITÁCORA ─────────────────────────────────────────── -->
+<section id="screenBitacora" class="screen overlay-screen">
+  <div class="reveal-card wide" id="bitacoraCard">
+    <div class="reveal-kicker">🧾 BITÁCORA</div>
+    <div class="plain-list" id="bitacoraLista"></div>
+    <button class="link-quiet" id="bitacoraCerrar">cerrar</button>
+  </div>
+</section>
+
+<!-- ── PENDIENTES ───────────────────────────────────────── -->
+<section id="screenPendientes" class="screen overlay-screen">
+  <div class="reveal-card wide" id="pendientesCard">
+    <div class="reveal-kicker">☑ PENDIENTES</div>
+    <div class="plain-list" id="pendientesLista"></div>
+    <button class="link-quiet" id="pendientesCerrar">cerrar</button>
+  </div>
+</section>
+
+<!-- ── BLOQUEAR (diagnóstico) ───────────────────────────── -->
+<section id="screenBloquear" class="screen overlay-screen">
+  <div class="reveal-card" id="bloquearCard">
+    <div class="reveal-kicker">🧱 ¿QUÉ LA ESTÁ FRENANDO?</div>
+    <div class="reveal-body" id="bloquearTitulo">—</div>
+    <div class="bloqueo-grid" id="bloqueoGrid"></div>
+    <button class="link-quiet" id="bloquearCerrar">cancelar</button>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<nav class="tabbar" id="tabbar">
+  <button data-tab="home" class="tab-on">🏠<span>Inicio</span></button>
+  <button data-screen="screenBitacora">🧾<span>Bitácora</span></button>
+  <button data-screen="screenExpedientes">📁<span>Expedientes</span></button>
+  <button data-screen="screenBloqueos">🧱<span>Bloqueos</span></button>
+</nav>
 
 <script src="state.js"></script>
 <script src="engine.js"></script>
