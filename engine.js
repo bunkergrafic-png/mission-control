@@ -77,6 +77,24 @@ const SURPRISE_EVENTS = [
     contenido:{ titulo:'¿Dónde vive esto?', cuerpo:'Piensa en un objeto de tu casa que no tiene un lugar fijo. ¿Dónde debería vivir?', placeholder:'¿Dónde debería vivir?' }
   },
 
+  {
+    id:'wg_recuerdo_rapido', tipo:'waiting_game', rareza:'poco_comun', cooldownHoras:10,
+    estadosElegibles:null, contextosElegibles:['waiting','transport','visit'],
+    requires:{ minAvailableTime:'2m' }, productividadOculta:false, interaccion:'input',
+    contenido:{ titulo:'Memoria rápida', cuerpo:'Sin mirar: ¿qué llevabas puesto ayer a esta misma hora?', placeholder:'¿Qué recuerdas?' }
+  },
+  {
+    id:'reto_agua', tipo:'reto', rareza:'comun', cooldownHoras:6,
+    estadosElegibles:['fundido','saturado'], contextosElegibles:null,
+    requires:{}, productividadOculta:true, interaccion:'confirmar_luego',
+    contenido:{ titulo:'Vaso de agua', cuerpo:'Antes de lo que sea que sigue: tómate un vaso de agua completo, ya.' }
+  },
+  {
+    id:'reto_3_min', tipo:'reto', rareza:'comun', cooldownHoras:5,
+    estadosElegibles:['saturado'], contextosElegibles:['home'],
+    requires:{ mobility:'free' }, productividadOculta:true, interaccion:'confirmar_luego',
+    contenido:{ titulo:'3 minutos, nada más', cuerpo:'Pon un temporizador de 3 minutos. Mueve lo que puedas en ese rato. Cuando suene, paras aunque quieras seguir.' }
+  },
   // ── espejo (patrón observado, siempre como teoría a confirmar) ──
   {
     id:'espejo_generico', tipo:'espejo', rareza:'raro', cooldownHoras:72,

@@ -10,13 +10,17 @@ const GREETS = [
   '¿Qué está pasando, Dio?',
   '¿Qué coño tendrá hoy?',
   'Aquí sigo. ¿Cómo vamos?',
-  '¿Cómo va el día por ahí?'
+  '¿Cómo va el día por ahí?',
+  'Reportándome. ¿Qué hay?',
+  '¿Seguimos donde quedamos, o hay algo nuevo?'
 ];
 const FRASES_CIERRE = [
   'Ya quedó.',
   'Eso ya no vuelve a la lista.',
   'Un movimiento menos pendiente.',
-  'Anotado.'
+  'Anotado.',
+  'Listo, desgraciado.',
+  'Eso cuenta.'
 ];
 
 const MOOD_BUTTONS = [
@@ -241,6 +245,10 @@ $('bossRevelar').onclick=()=>{
 };
 $('bossRechazar').onclick=()=>{ mcLogInteraction('boss_rechazado',{}); mcShowScreen(null); };
 $('bossCerrar').onclick=()=>{ clearInterval(bossTimerInterval); mcShowScreen(null); };
+function updateBossTimer(seg){
+  const m=String(Math.floor(seg/60)).padStart(2,'0'), s=String(seg%60).padStart(2,'0');
+  $('bossTimerDisplay').textContent=`${m}:${s}`;
+}
 $('bossEmpezarRonda').onclick=()=>{
   $('bossModoNormal').hidden=true; $('bossTimerWrap').hidden=false;
   let seg=420; updateBossTimer(seg);
@@ -276,7 +284,11 @@ function decidirModoBoss(){
 /* ── Expedientes ──────────────────────────────────────── */
 function seedExpedienteSiVacio(){
   if(mcState.expedientes.length===0){
-    mcAddExpediente({tipo:'aprendizaje', titulo:'[Ejemplo] Expediente de prueba', pistaRecuerdo:'🏺🔥📯', pregunta:'¿Qué representa esta pista?', respuesta:'Reemplaza este expediente por uno real cuando quieras — esto es solo para probar el mecanismo.'});
+    mcAddExpediente({
+      tipo:'biblico', titulo:'Gedeón', pistaRecuerdo:'🏺🔥📯',
+      pregunta:'32.000 → 10.000 → 300. ¿Quién?',
+      respuesta:'Texto: Jueces 7 — Dios le pide a Gedeón reducir su ejército de 32.000 a 300 hombres antes de enfrentar a Madián. Aplicación: no siempre se gana por tener más recursos — a veces la idea es que quede claro que la victoria no fue por la fuerza propia.'
+    });
   }
 }
 function renderExpedientes(){
