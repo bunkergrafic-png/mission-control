@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mc-v2';
+const CACHE_NAME = 'mc-v3';
 const FILES_TO_CACHE = [
   './',
   './index.html',
@@ -23,8 +23,17 @@ self.addEventListener('activate', (event) => {
   );
   self.clients.claim();
 });
+// Network-first: mientras haya internet, siempre trae la versión real del
+// servidor (evita quedarte pegado en una versión vieja mientras esto sigue
+// cambiando rápido). Si no hay red, cae al caché como respaldo offline.
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    fetch(event.request)
+      .then((res) => {
+        const copia = res.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copia));
+        return res;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
