@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mc-v1';
+const CACHE_NAME = 'mc-v2';
 const FILES_TO_CACHE = [
   './',
   './index.html',
